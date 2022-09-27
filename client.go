@@ -54,33 +54,33 @@ func (c *Client) getStatistics() error {
 			return err
 		}
 
-		Uptime.WithLabelValues(modem.Id).Set(float64(stats.Uptime))
-		CurrentUp.WithLabelValues(modem.Id).Set(float64(stats.CurrentUp))
-		CurrentDown.WithLabelValues(modem.Id).Set(float64(stats.CurrentDown))
-		CRCUp.WithLabelValues(modem.Id).Set(float64(stats.CRCUp))
-		CRCDown.WithLabelValues(modem.Id).Set(float64(stats.CRCDown))
-		MaxUp.WithLabelValues(modem.Id).Set(float64(stats.MaxUp))
-		MaxDown.WithLabelValues(modem.Id).Set(float64(stats.MaxDown))
-		DataUp.WithLabelValues(modem.Id).Set(float64(stats.DataUp))
-		DataDown.WithLabelValues(modem.Id).Set(float64(stats.DataDown))
-		FECUp.WithLabelValues(modem.Id).Set(float64(stats.FECUp))
-		FECDown.WithLabelValues(modem.Id).Set(float64(stats.FECDown))
-		SNRUp.WithLabelValues(modem.Id).Set(float64(stats.SNRUp))
-		SNRDown.WithLabelValues(modem.Id).Set(float64(stats.SNRDown))
+		Uptime.WithLabelValues(stats.Host).Set(float64(stats.Uptime))
+		CurrentUp.WithLabelValues(stats.Host).Set(float64(stats.CurrentUp))
+		CurrentDown.WithLabelValues(stats.Host).Set(float64(stats.CurrentDown))
+		CRCUp.WithLabelValues(stats.Host).Set(float64(stats.CRCUp))
+		CRCDown.WithLabelValues(stats.Host).Set(float64(stats.CRCDown))
+		MaxUp.WithLabelValues(stats.Host).Set(float64(stats.MaxUp))
+		MaxDown.WithLabelValues(stats.Host).Set(float64(stats.MaxDown))
+		DataUp.WithLabelValues(stats.Host).Set(float64(stats.DataUp))
+		DataDown.WithLabelValues(stats.Host).Set(float64(stats.DataDown))
+		FECUp.WithLabelValues(stats.Host).Set(float64(stats.FECUp))
+		FECDown.WithLabelValues(stats.Host).Set(float64(stats.FECDown))
+		SNRUp.WithLabelValues(stats.Host).Set(float64(stats.SNRUp))
+		SNRDown.WithLabelValues(stats.Host).Set(float64(stats.SNRDown))
 
 		var isEnabled int = 0
 		if stats.Status == true {
 			isEnabled = 1
 		}
 
-		Status.WithLabelValues(modem.Id).Set(float64(isEnabled))
+		Status.WithLabelValues(stats.Host).Set(float64(isEnabled))
 
 		var isVoipEnabled int = 0
 		if stats.VoipStatus == true {
 			isVoipEnabled = 1
 		}
 
-		VoipStatus.WithLabelValues(modem.Id).Set(float64(isVoipEnabled))
+		VoipStatus.WithLabelValues(stats.Host).Set(float64(isVoipEnabled))
 	}
 
 	return nil

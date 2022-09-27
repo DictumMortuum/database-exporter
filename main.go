@@ -56,6 +56,6 @@ func main() {
 	case <-serverDead:
 	}
 
-	version := "0.0.1"
+	version := "0.0.2"
 	fmt.Printf("database-exporter v%s HTTP server stopped\n", version)
 }

@@ -6,8 +6,10 @@ import (
 	"github.com/heetch/confita"
 	"github.com/heetch/confita/backend/file"
 	"github.com/heetch/confita/backend/flags"
-	"github.com/xonvanetta/shutdown/pkg/shutdown"
 	"log"
+	"os"
+	"os/signal"
+	"syscall"
 )
 
 type Config struct {
@@ -44,7 +46,8 @@ func main() {
 		close(serverDead)
 	}()
 
-	ctx := shutdown.Context()
+	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGINT, syscall.SIGTERM)
+	defer stop()
 
 	go func() {
 		<-ctx.Done()
@@ -56,6 +59,6 @@ func main() {
 	case <-serverDead:
 	}
 
-	version := "0.0.2"
+	version := "0.0.3"
 	fmt.Printf("database-exporter v%s HTTP server stopped\n", version)
 }
